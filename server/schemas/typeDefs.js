@@ -20,6 +20,28 @@ const typeDefs = gql`
   type Query {
     me: User
   }
+
+  imput SavedBook {
+    description: String
+    titel: String
+    bookId: String
+    image: String
+    link: String 
+    authors [String]
+  }
+
+  type Auth {
+    token: ID!
+    user: User
+  }
+
+  type mutation {
+    login(email: String!, password, String!): Auth
+    addUser(username: String!, email: String!, password: String!): Auth
+    saveBook(input: saveBook!): User
+    removeBook(bookID: ID!): User
+  }
+
 `;
 
 module.exports = typeDefs;
