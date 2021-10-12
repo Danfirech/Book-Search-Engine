@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useMutation } from "@apollo/react-hooks";
-import { ADD_USER } from "../utils/mutations";
+import { ADD_USER } from "../../../server/schemas/resolvers";
+
 import { Form, Button, Alert } from "react-bootstrap";
 
 import { createUser } from "../utils/API";
@@ -36,9 +36,9 @@ const SignupForm = () => {
     try {
       const response = await createUser(userFormData);
 
-      // if (!response.ok) {
-      //   throw new Error('something went wrong!');
-      // }
+      if (!response.ok) {
+        throw new Error("something went wrong!");
+      }
 
       const { token, user } = await response.json();
       console.log(user);
