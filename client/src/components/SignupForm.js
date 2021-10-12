@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { ADD_USER } from "../../../server/schemas/resolvers";
-
 import { Form, Button, Alert } from "react-bootstrap";
+import { useMutation } from "";
 
-import { createUser } from "../utils/API";
 import Auth from "../utils/auth";
+import { ADD_USER } from "../../../server/schemas/resolvers";
 
 const SignupForm = () => {
   // set initial form state
@@ -23,6 +22,8 @@ const SignupForm = () => {
     setUserFormData({ ...userFormData, [name]: value });
   };
 
+  const [addUser, { error }] = useMutation(ADD_USER);
+
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -34,7 +35,7 @@ const SignupForm = () => {
     }
 
     try {
-      const response = await createUser(userFormData);
+      const response = await addUser(userFormData);
 
       if (!response.ok) {
         throw new Error("something went wrong!");
